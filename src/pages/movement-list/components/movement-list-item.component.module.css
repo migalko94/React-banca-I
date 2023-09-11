@@ -1,0 +1,42 @@
+.row {
+  display: grid;
+  grid-template-columns: 30% 12% repeat(2, 17%) 1fr;
+  gap: 1px;
+}
+
+.row:nth-child(odd) {
+  background-color: #eeeeee;
+}
+
+.data-cell {
+  font-size: 16px;
+  padding: 15px;
+  color: #232c3b;
+  align-self: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.negative-figure {
+  color: rgb(193, 35, 35);
+}
+
+@media screen and (max-width: 500px) {
+  .data-cell {
+    display: inline-flex;
+    flex-direction: column;
+    font-size: 10px;
+  }
+
+  .row {
+    display: inline-flex;
+    font-size: 10px;
+  }
+
+  .align-right {
+    text-align: center;
+    font-size: 10px;
+  }
+}

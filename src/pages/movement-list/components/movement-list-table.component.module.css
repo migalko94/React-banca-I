@@ -1,0 +1,11 @@
+.grid-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .grid-container {
+    display: inline-flex;
+    flex-direction: column;
+  }
+}
