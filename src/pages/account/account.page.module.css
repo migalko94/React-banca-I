@@ -1,0 +1,24 @@
+.root {
+  width: 90vw;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.header-container {
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 5px solid #232c3b;
+}
+
+.header-container h1 {
+  font-size: 2.2rem;
+  font-weight: inherit;
+}
+
+@media screen and (max-width: 500px) {
+  .header-container {
+    display: none;
+  }
+}

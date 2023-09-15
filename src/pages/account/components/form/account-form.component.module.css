@@ -1,0 +1,9 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-top: 3rem;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}

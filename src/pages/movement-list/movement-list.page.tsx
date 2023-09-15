@@ -11,11 +11,12 @@ import { mapMovementListFromApiToVm } from "./movement-list.mapper";
 import { getIban } from "./api/iban.api";
 
 import classes from "./movement-list.page.module.css";
+import { getBalance } from "./api/balance.api";
 
 export const MovementListPage: React.FC = () => {
   const [movementList, setMovementList] = React.useState<MovementVm[]>([]);
   const [iban, setIban] = React.useState<string>("");
-  const [balance, setBalance] = React.useState<string>("");
+  const [balance, setBalance] = React.useState<string | number>("");
 
   const { id } = useParams();
 
@@ -24,9 +25,8 @@ export const MovementListPage: React.FC = () => {
       try {
         getMovements(id).then((result) => {
           const movements = mapMovementListFromApiToVm(result);
-          const lastBalance = movements[0].balance;
+
           setMovementList(movements);
-          setBalance(lastBalance);
         });
       } catch (error) {
         throw new Error("Error al cargar los movimientos");
@@ -38,6 +38,16 @@ export const MovementListPage: React.FC = () => {
     if (id) {
       try {
         getIban(id).then((result) => setIban(result));
+      } catch (error) {
+        throw new Error("Error al cargar el IBAN");
+      }
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (id) {
+      try {
+        getBalance(id).then((result) => setBalance(result));
       } catch (error) {
         throw new Error("Error al cargar el IBAN");
       }

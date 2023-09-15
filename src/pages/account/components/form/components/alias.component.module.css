@@ -1,0 +1,35 @@
+.alias-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 90vw;
+  padding-left: 50px;
+  padding-bottom: 3rem;
+  align-items: center;
+  border-bottom: 1px solid #232c3b;
+}
+
+.alias-container input {
+  font-size: 16px;
+  width: auto;
+}
+
+.error {
+  color: var(--error_color);
+  font-size: 0.9em;
+}
+
+.input-error {
+  box-shadow: unset;
+  border-color: #f44336;
+}
+
+@media screen and (max-width: 500px) {
+  .alias-container {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    align-items: center;
+    border-bottom: none;
+  }
+}
