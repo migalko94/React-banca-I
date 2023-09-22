@@ -1,21 +1,20 @@
 import React from "react";
-
 import { useParams } from "react-router-dom";
 
 import { AppLayout } from "@/layouts";
+import { MovementListTableComponent } from "./components";
+import { getMovements, getAccount } from "./api";
 
-import { MovementListTableComponent } from "./components/movement-list.table.component";
 import { MovementVm } from "./movement-list.vm";
-import { getMovements } from "./api";
 import { mapMovementListFromApiToVm } from "./movement-list.mapper";
-import { getIban } from "./api/iban.api";
 
 import classes from "./movement-list.page.module.css";
+import { Account, createEmptyAccount } from "./account.vm";
 
 export const MovementListPage: React.FC = () => {
+  const [account, setAccount] = React.useState<Account>(createEmptyAccount());
+
   const [movementList, setMovementList] = React.useState<MovementVm[]>([]);
-  const [iban, setIban] = React.useState<string>("");
-  const [balance, setBalance] = React.useState<string>("");
 
   const { id } = useParams();
 
@@ -24,9 +23,7 @@ export const MovementListPage: React.FC = () => {
       try {
         getMovements(id).then((result) => {
           const movements = mapMovementListFromApiToVm(result);
-          const lastBalance = movements[0].balance;
           setMovementList(movements);
-          setBalance(lastBalance);
         });
       } catch (error) {
         throw new Error("Error al cargar los movimientos");
@@ -37,7 +34,7 @@ export const MovementListPage: React.FC = () => {
   React.useEffect(() => {
     if (id) {
       try {
-        getIban(id).then((result) => setIban(result));
+        getAccount(id).then((result) => setAccount(result));
       } catch (error) {
         throw new Error("Error al cargar el IBAN");
       }
@@ -51,12 +48,12 @@ export const MovementListPage: React.FC = () => {
           <h1>Saldos y Últimos movimientos</h1>
           <span>
             <p className={classes.balanceTitle}>SALDO DISPONIBLE</p>
-            <p className={classes.balanceFigure}>{balance} €</p>
+            <p className={classes.balanceFigure}>{account.balance} €</p>
           </span>
         </div>
         <div className={classes.subtitle}>
-          <p>Alias: Gastos mes</p>
-          <p>IBAN: {iban}</p>
+          <p>Alias: {account.name}</p>
+          <p>IBAN: {account.iban}</p>
         </div>
         <MovementListTableComponent movementList={movementList} />
       </div>
