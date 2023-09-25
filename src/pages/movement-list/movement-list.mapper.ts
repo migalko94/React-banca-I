@@ -12,3 +12,11 @@ export const mapMovementListFromApiToVm = (
     transaction: new Date(movement.transaction),
     realTransaction: new Date(movement.realTransaction),
   }));
+
+export const mapAccountFromApiToVm = (
+  account: apiModel.Account
+): viewModel.Account => ({
+  iban: account.iban,
+  name: account.name,
+  balance: account.balance,
+});

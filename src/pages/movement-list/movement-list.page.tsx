@@ -4,12 +4,10 @@ import { useParams } from "react-router-dom";
 import { AppLayout } from "@/layouts";
 import { MovementListTableComponent } from "./components";
 import { getMovements, getAccount } from "./api";
-
-import { MovementVm } from "./movement-list.vm";
+import { MovementVm, Account, createEmptyAccount } from "./movement-list.vm";
 import { mapMovementListFromApiToVm } from "./movement-list.mapper";
 
 import classes from "./movement-list.page.module.css";
-import { Account, createEmptyAccount } from "./account.vm";
 
 export const MovementListPage: React.FC = () => {
   const [account, setAccount] = React.useState<Account>(createEmptyAccount());
@@ -28,15 +26,10 @@ export const MovementListPage: React.FC = () => {
       } catch (error) {
         throw new Error("Error al cargar los movimientos");
       }
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (id) {
       try {
         getAccount(id).then((result) => setAccount(result));
       } catch (error) {
-        throw new Error("Error al cargar el IBAN");
+        throw new Error("Error al cargar la cuenta");
       }
     }
   }, []);
