@@ -16,5 +16,5 @@ export interface Account {
 export const createEmptyAccount = (): Account => ({
   iban: "",
   name: "",
-  balance: -1,
+  balance: 0,
 });
